@@ -4,7 +4,7 @@ let zoomLevel = 4
 let map = L.map("bridge-map").setView(countryCenter,zoomLevel)
 
 var bridgeIcon = L.icon({
-	iconUrl: 'bridgeIcon.png',
+	iconUrl: 'BridgeIcon.png',
 
 	iconSize:     [50, 50], // size of the icon
 	shadowSize:   [25, 25], // size of the shadow
