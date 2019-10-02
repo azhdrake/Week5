@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Events</title>
+
+  <style>
+
+    #canvas {
+      border: 1px black solid;
+    }
+
+  </style>
+
+</head>
+<body>
+
+
+<P>Drag the mouse on the canvas</P>
+<canvas id="canvas" height="400" width="400"></canvas>
+</br>
+<label for="color-select">Select Color</label>
+<input type="color" id="color-select" name="color-select">
+<label for="brush-size">Brush Size</label>
+<input type="range" min="1" max="10" value="5" name="brush-size" id="size">
+
+<script>
+
+  let canvas = document.getElementById("canvas");
+  let context = canvas.getContext("2d");
+  let brushSelector = document.getElementById("size")
+  let colorSelector = document.getElementById("color-select")
+
+  let brushSize = brushSelector.value
+  let color = colorSelector.value
+  let mousedown = false //variable to keep track of if the mouse is holding a click.
+  
+  brushSelector.addEventListener("change",function(){
+	brushSize = brushSelector.value
+  })
+  
+  colorSelector.addEventListener("change",function(){
+	color = colorSelector.value
+	context.fillStyle = color
+  })
+
+  canvas.addEventListener("pointerdown", function() { //pointerdown makes drawing program compatable with a stylus. It doesn't work great mind you, but it works well enough.
+    mousedown = true
+  });
+
+  canvas.addEventListener("pointerup", function() {
+    mousedown = false 
+  })
+
+  canvas.addEventListener("pointermove", function() {
+
+    if (!mousedown) { return; } //if the mouse/stylus isn't down, don't do anything. Just go. Return from whence you came. You're not wanted here.
+
+    let x = event.offsetX;   // get the x, y location of the event
+    let y = event.offsetY;  
+
+    //Draw a filled circle centered under the mouse click
+	context.beginPath()
+    context.arc(x, y, brushSize, 0, 2 * Math.PI)
+	context.fill()
+
+  })
+
+</script>
+
+</body>
+</html>
